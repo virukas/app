@@ -1,0 +1,159 @@
+<div class="card">
+  <h4 class="card-header card-header-color">User Registration</h4>
+  <div class="card-body">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="row mb-3 ">
+        <div class="form-group col">
+          <label>Title</label>
+          <select class="form-control" formControlName="title"
+            [ngClass]="{'is-invalid' : submitted && f['title'].errors}">
+            <option value="Mr">Mr</option>
+            <option value="Msr">Msr</option>
+            <option value="Miss">Miss</option>
+            <option value="Ms">Ms</option>
+          </select>
+          <div *ngIf="submitted && f.title.errors" class="Invalid-feedback">
+            <div *ngIf="f['title'].errors['required']">Title is required!!</div>
+          </div>
+
+        </div>
+
+        <div class="form-group col-5">
+          <label>FristName</label>
+          <input type="text" class="form-control" formControlName="fristName"
+            [ngClass]="{'is-invalid' : submitted && f['fristName'].errors}" />
+          <div *ngIf="submitted && f['fristName'].errors" class="Invalid-feedback">
+            <div *ngIf="f['fristName'].errors['required']">FirstName is required !!</div>
+            <div *ngIf="f['fristName'].errors['minlength']">FirstName should be atleast 2 chr long !!</div>
+            <div *ngIf="f['fristName'].errors['maxlength']">FirstName should not be more than 20 char long !!</div>
+          </div>
+        </div>
+
+        <div class="form-group col-5">
+          <label>LastName</label>
+          <input type="text" class="form-control" formControlName="lastname"
+            [ngClass]="{'is-invalid' : submitted && f['lastname'].errors}" />
+          <div *ngIf="submitted && f['lastname'].errors" class="Invalid-feedback">
+            <div *ngIf="f['lastname'].errors['required']">LastName is required !!</div>
+            <div *ngIf="f['lastname'].errors['minlength']">LastName should be atleast 2 chr long !!</div>
+            <div *ngIf="f['lastname'].errors['maxlength']">LastName should not be more than 20 char long !!</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="form-group col-5">
+          <label>Date of Birth</label>
+          <input type="date" class="form-control" formControlName="dob"
+            [ngClass]="{'is-invalid' : submitted && f['dob'].errors}" />
+          <div *ngIf="submitted && f['dob'].errors" class="Invalid-feedback">
+            <div *ngIf="f['dob'].errors['required']">Date of brith is required !!</div>
+            <div *ngIf="f['dob'].errors['pattern']">Date of brith must be a valid date in the format YYYY-MM-DD !!</div>
+            <!-- <div *ngIf ="f['dob'].errors['maxlength']">dob should not be more than 20 char long !!</div> -->
+          </div>
+
+        </div>
+        <div class="form-group col-5">
+          <label>Email</label>
+          <input type="text" class="form-control" formControlName="email"
+            [ngClass]="{'is-invalid' : submitted && f['email'].errors}" />
+          <div *ngIf="submitted && f['email'].errors" class="Invalid-feedback">
+            <div *ngIf="f['email'].errors['required']">Email is required !!</div>
+            <div *ngIf="f['email'].errors['email']">Email must be a vilid email address !!</div>
+
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+      <div class="row mb-3">
+        <div class="form-group col-5">
+          <label>Password</label>
+          <input type="password" class="form-control" formControlName="password"
+            [ngClass]="{'is-invalid' : submitted && f['password'].errors}" />
+          <div *ngIf="submitted && f['password'].errors" class="Invalid-feedback">
+            <div *ngIf ="f['password'].errors['required']">Password is required !!</div>
+            <div *ngIf ="f['password'].errors['minlength']">Password must be 6 chr long !!</div>
+
+          </div>
+
+        </div>
+        <div class="form-group col-5">
+          <label>Confirm password</label>
+          <input type="password" class="form-control" formControlName="confirmPassword"
+            [ngClass] ="{'is-invalid' : submitted && f['confirmPassword'].errors}" />
+          <div *ngIf ="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+            <div *ngIf ="f['confirmPassword'].errors['required']">Confirm Password is required !!</div>
+            <div *ngIf ="f['confirmPassword'].errors['mustMatch']">Password and confirm Password must be same !!</div>
+
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="row mb-3">
+        <div class="form-group col form-check">
+          <input type="checkbox" class=" form-check-input" id="acceptTerms" formControlName="acceptTerms"
+            [ngClass] ="{'is-invalid' : submitted && f['acceptTerms'].errors}" />
+          <label for="acceptTerms" class="form-check-labale">Accept Terms & Condition</label>
+          <div *ngIf ="submitted && f['acceptTerms'].errors" class="Invalid-feedback">
+            <div *ngIf ="f['acceptTerms'].errors['required']">Accept Terms & Condition is required !!</div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="form-group text-center ">
+          <button type="submit" class="btn btn-success me-2">{{buttonText}}</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">cancel</button>
+
+        </div>
+      </div>
+
+
+
+    </form>
+  </div>
+</div>
+
+
+<div class="card">
+  <h4 class="card-header card-header-list-color">User data</h4>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="form-group col">
+        <table class="table table-striped">
+          <tr>
+            <th>title</th>
+            <th>FristName</th>
+            <th>LastName</th>
+            <th>DOB</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let user of users">
+            <td>{{user.title}} </td>
+            <td>{{user.fristName}} </td>
+            <td>{{user.lastname}} </td>
+            <td>{{user.dob}}</td>
+            <td>{{user.email}} </td>
+            <td>
+              <i class=" fa fa-edit mx-3" style="color:rgb(52, 207, 65)" (click) ="Edit(user.id)"></i>
+              <i class=" fa fa-trash-o" style="color:red" (click) ="Delete(user.id)"></i>
+            </td>
+          </tr>
+        </table>
+        <!-- {{users}}  -->
+      </div>
+    </div>
+    <div>
+    </div>
+
+    <app-test></app-test>
+    <router-outlet></router-outlet>
